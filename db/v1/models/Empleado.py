@@ -37,10 +37,11 @@ class Empleado(Base):
             return {}
 
     def insert(self, data=...):
-        return super().insert(
-                attr="id_farmacia, nombre, apellido, edad, cargo",
-                values="%(id_farmacia)s, %(nombre)s, %(apellido)s, %(edad)s, %(cargo)s",
-                data=data)
+        attr = ','.join(self.attr[1:])
+        values = ",".join([str('%('+item+')s') for item in self.attr[1:]])
+        return super().insert(attr=attr,
+                              values=values,
+                              data=data)
 
     def update(self, id="", data=...):
         return super().update(id, data)

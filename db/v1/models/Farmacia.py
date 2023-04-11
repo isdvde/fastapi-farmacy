@@ -25,8 +25,10 @@ class Farmacia(Base):
             return {}
 
     def insert(self, data=...):
-        return super().insert(attr="nombre, ubicacion",
-                              values="%(nombre)s, %(ubicacion)s",
+        attr = ','.join(self.attr[1:])
+        values = ",".join([str('%('+item+')s') for item in self.attr[1:]])
+        return super().insert(attr=attr,
+                              values=values,
                               data=data)
 
     def update(self, id="", data=...):

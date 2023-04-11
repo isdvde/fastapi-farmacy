@@ -7,3 +7,9 @@ class Laboratorio(BaseModel):
     nombre: str
     ubicacion: str
     telefono: str
+
+
+class Create(BaseModel):
+    nombre: Optional[str]
+    ubicacion: Optional[str]
+    telefono: Optional[str]
