@@ -19,7 +19,8 @@ class Farmacia(Base):
     def get(self, id=""):
         try:
             data = super().get(id)
-            return [dict(zip(self.attr, dat)) for dat in data]
+            return sorted([dict(zip(self.attr, dat)) for dat in data],
+                          key=lambda k: k['id'])
         except DatabaseError:
             return {}
 
@@ -27,3 +28,9 @@ class Farmacia(Base):
         return super().insert(attr="nombre, ubicacion",
                               values="%(nombre)s, %(ubicacion)s",
                               data=data)
+
+    def update(self, id="", data=...):
+        return super().update(id, data)
+
+    def delete(self, id=""):
+        return super().delete(id)

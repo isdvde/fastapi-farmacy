@@ -2,11 +2,11 @@ from fastapi import APIRouter, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
-from db.models.Farmacia import Farmacia as FarmaciaModel
-from db.schemas.Farmacia import Create as CreateFarmaciaSchema
-from db.schemas.Farmacia import Farmacia as FarmaciaSchema
+from db.v1.models.Farmacia import Farmacia as FarmaciaModel
+from db.v1.schemas.Farmacia import Create as CreateFarmaciaSchema
+from db.v1.schemas.Farmacia import Farmacia as FarmaciaSchema
 
-Farmacia = APIRouter(prefix="/farmacia", tags=['farmacia'])
+Farmacia = APIRouter(prefix="/farmacia", tags=['v1.farmacia'])
 
 
 @Farmacia.get("/")
@@ -14,15 +14,16 @@ def get():
     db = FarmaciaModel()
     data = db.get()
     del db
-    return data
-
+    return JSONResponse(status_code=status.HTTP_200_OK,
+                        content={"data": data})
 
 @Farmacia.get("/{id}")
 def getById(id: str):
     db = FarmaciaModel()
     data = db.get(id)
     del db
-    return data
+    return JSONResponse(status_code=status.HTTP_200_OK,
+                        content={"data": data})
 
 
 @Farmacia.post("/")
@@ -48,12 +49,23 @@ def set(f: CreateFarmaciaSchema):
 @Farmacia.patch("/{id}")
 def update(id, f: CreateFarmaciaSchema):
     db = FarmaciaModel()
-
+    data = f.dict()
+    if not db.update(id, data):
+        return JSONResponse(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                            content="No se ha podido actualizar los valores")
     del db
+    return JSONResponse(status_code=status.HTTP_202_ACCEPTED,
+                        content="Actualizacion correcta")
 
 
 @Farmacia.delete("/{id}")
 def delete(id):
     db = FarmaciaModel()
+    if not db.delete(id):
+        return JSONResponse(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                            content="Error al borrar el registro")
+    del db
+    return JSONResponse(status_code=status.HTTP_202_ACCEPTED,
+                        content="Registro borrado con exito")
 
     del db

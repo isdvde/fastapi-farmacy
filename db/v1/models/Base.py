@@ -1,5 +1,5 @@
 from psycopg2 import DatabaseError
-from db.config import DB
+from db.v1.config import DB
 from string import ascii_lowercase
 from random import choice
 
@@ -55,6 +55,32 @@ class Base():
         except DatabaseError as e:
             print(e)
             return False
+
+    def update(self, id="", data={}):
+        try:
+            if not self.get(id) or not data:
+                return False
+            for key, val in data.items():
+                if val:
+                    sql = (f"update {self.tablename} set {key} = %s " +
+                           f"where id = {id}")
+                    self.db.run(sql, [val])
+            return True
+        except DatabaseError as e:
+            print(e)
+            return False
+
+    def delete(self, id=""):
+        try:
+            if not self.get(id):
+                return False
+            sql = f"delete from {self.tablename} where id = {id}"
+            self.db.run(sql)
+            return True
+        except DatabaseError as e:
+            print(e)
+            return False
+
 
     def __del__(self):
         del self.db
