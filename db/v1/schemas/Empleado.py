@@ -9,3 +9,11 @@ class Empleado(BaseModel):
     apellido: str
     edad: int
     cargo: str
+
+
+class Create(BaseModel):
+    id_farmacia: Optional[int]
+    nombre: Optional[str]
+    apellido: Optional[str]
+    edad: Optional[int]
+    cargo: Optional[str]
