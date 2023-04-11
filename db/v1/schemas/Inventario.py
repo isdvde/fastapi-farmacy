@@ -7,3 +7,9 @@ class Inventario(BaseModel):
     id_farmacia: int
     id_medicamento: int
     cantidad: int
+
+
+class Create(BaseModel):
+    id_farmacia: Optional[int]
+    id_medicamento: Optional[int]
+    cantidad: Optional[int]
