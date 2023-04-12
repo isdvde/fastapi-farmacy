@@ -81,6 +81,10 @@ class Base():
             print(e)
             return False
 
+    def getLastId(self):
+        sql = f"select id from {self.tablename} order by id desc limit 1"
+        id = self.db.get(sql)[0][0]
+        return id
 
     def __del__(self):
         del self.db
