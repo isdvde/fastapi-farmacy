@@ -8,6 +8,7 @@ class Medicamento(BaseModel):
     presentacion: str
     accion: str
     precio: float
+    laboratorio: int
 
 
 class Create(BaseModel):
@@ -15,3 +16,4 @@ class Create(BaseModel):
     presentacion: Optional[str]
     accion: Optional[str]
     precio: Optional[float]
+    laboratorio: Optional[int]

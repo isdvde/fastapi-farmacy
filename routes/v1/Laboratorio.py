@@ -69,4 +69,11 @@ def delete(id):
     return JSONResponse(status_code=status.HTTP_202_ACCEPTED,
                         content="Registro borrado con exito")
 
+
+@Laboratorio.get("/{id}/medicamentos")
+def getMedicamentos(id):
+    db = LaboratorioModel()
+    data = db.getMedicamentos(id)
     del db
+    return JSONResponse(status_code=status.HTTP_200_OK,
+                        content={"data": data})
