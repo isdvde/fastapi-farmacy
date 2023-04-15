@@ -1,7 +1,5 @@
 from psycopg2 import DatabaseError
 from .Base import Base
-from .Farmacia import Farmacia
-from .Medicamento import Medicamento
 
 
 class Inventario(Base):
@@ -9,8 +7,6 @@ class Inventario(Base):
         super().__init__()
         self.tablename = "inventario"
         self.attr = ('id', 'id_farmacia', 'id_medicamento', 'cantidad')
-        self.farmacia = Farmacia()
-        self.medicamento = Medicamento()
 
     def init(self):
         sql = f"""create table {self.tablename} (
@@ -26,15 +22,10 @@ class Inventario(Base):
             ('id_farmacia', 'farmacias'),
             ('id_medicamento', 'medicamentos')])
 
-    def get(self, id=""):
+    def getByFarmacia(self, id=""):
         try:
-            data = super().get(id)
-            data = sorted([dict(zip(self.attr, dat)) for dat in data],
-                          key=lambda k: k['id'])
-            for d in data:
-                f = self.farmacia.get(d['id_farmacia'])[0]
-                m = self.medicamento.get(d['id_medicamento'])[0]
-                d.update({"farmacia": f, "medicamento": m})
+            sql = f"select id_medicamento, cantidad from {self.tablename} where id_farmacia = {id}"
+            data = self.db.get(sql)
             return data
         except DatabaseError:
             return {}

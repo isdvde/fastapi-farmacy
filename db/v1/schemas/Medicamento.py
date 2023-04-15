@@ -17,3 +17,10 @@ class Create(BaseModel):
     accion: Optional[str]
     precio: Optional[float]
     laboratorio: Optional[int]
+
+
+class Update(BaseModel):
+    monodroga: Optional[str]
+    presentacion: Optional[str]
+    accion: Optional[str]
+    precio: Optional[float]

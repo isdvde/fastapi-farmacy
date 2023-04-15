@@ -9,23 +9,23 @@ from db.v1.schemas.Inventario import Inventario as InventarioSchema
 Inventario = APIRouter(prefix="/inventario", tags=['v1.inventario'])
 
 
-@Inventario.get("/")
-def get():
-    db = InventarioModel()
-    data = db.get()
-    del db
-    return JSONResponse(status_code=status.HTTP_200_OK,
-                        content={"data": data})
+# @Inventario.get("/")
+# def get():
+#     db = InventarioModel()
+#     data = db.get()
+#     del db
+#     return JSONResponse(status_code=status.HTTP_200_OK,
+#                         content={"data": data})
 
 
-@Inventario.get("/{id}")
-def getById(id: str):
-    db = InventarioModel()
-    data = db.get(id)
-    del db
-    return JSONResponse(status_code=status.HTTP_200_OK,
-                        content={"data": data})
-
+# @Inventario.get("/{id}")
+# def getById(id: str):
+#     db = InventarioModel()
+#     data = db.get(id)
+#     del db
+#     return JSONResponse(status_code=status.HTTP_200_OK,
+#                         content={"data": data})
+#
 
 @Inventario.post("/")
 def set(f: CreateInventarioSchema):

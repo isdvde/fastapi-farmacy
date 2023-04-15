@@ -19,7 +19,7 @@ class Laboratorio(Base):
                 );"""
         self.db.run(sql)
 
-    def get(self, id="", medicamento=True):
+    def get(self, id="", medicamento=False):
         try:
             data = super().get(id)
             data = sorted([dict(zip(self.attr, dat)) for dat in data],

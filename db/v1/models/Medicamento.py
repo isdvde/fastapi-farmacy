@@ -29,7 +29,7 @@ class Medicamento(Base):
                 for d in data:
                     la = self.getLaboratorio(d['id'])
                     d.update({'laboratorio': la})
-            return data if data else {}
+            return data if data else []
         except DatabaseError:
             return {}
 
@@ -42,7 +42,6 @@ class Medicamento(Base):
             return data if data else []
         except DatabaseError:
             return {}
-
 
     def getLastId(self):
         return super().getLastId()

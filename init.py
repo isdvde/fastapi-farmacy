@@ -1,13 +1,13 @@
-from db.models.Compra import Compra as CompraModel
-from db.models.CompraMedicamento import CompraMedicamento as CompraMedicamentoModel
-from db.models.Empleado import Empleado as EmpleadoModel
-from db.models.Farmacia import Farmacia as FarmaciaModel
-from db.models.Inventario import Inventario as InventarioModel
-from db.models.Laboratorio import Laboratorio as LaboratorioModel
-from db.models.LaboratorioMedicamento import LaboratorioMedicamento as LaboratorioMedicamentoModel
-from db.models.Medicamento import Medicamento as MedicamentoModel
-from db.models.Pedido import Pedido as PedidoModel
-from db.models.PedidoMedicamento import PedidoMedicamento as PedidoMedicamentoModel
+from db.v1.models.Compra import Compra as CompraModel
+from db.v1.models.CompraMedicamento import CompraMedicamento as CompraMedicamentoModel
+from db.v1.models.Empleado import Empleado as EmpleadoModel
+from db.v1.models.Farmacia import Farmacia as FarmaciaModel
+from db.v1.models.Inventario import Inventario as InventarioModel
+from db.v1.models.Laboratorio import Laboratorio as LaboratorioModel
+from db.v1.models.LaboratorioMedicamento import LaboratorioMedicamento as LaboratorioMedicamentoModel
+from db.v1.models.Medicamento import Medicamento as MedicamentoModel
+from db.v1.models.Pedido import Pedido as PedidoModel
+from db.v1.models.PedidoMedicamento import PedidoMedicamento as PedidoMedicamentoModel
 
 c = CompraModel()
 c.drop()
