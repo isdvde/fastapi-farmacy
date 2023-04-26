@@ -34,22 +34,22 @@ class Pedido(Base):
             ('id_laboratorio', 'laboratorios'),
             ('id_empleado', 'empleados')])
 
-    def get(self, id=""):
+    def get(self, id="", med=True):
         try:
             data = super().get(id)
             data = sorted([dict(zip(self.attr, dat)) for dat in data],
                           key=lambda k: k['id'])
             for d in data:
                 f = self.farmacia.get(d['id_farmacia'])[0]
+                d.update({"farmacia": f})
                 e = self.empleado.get(d['id_empleado'])[0]
+                d.update({"empleado": e})
                 la = self.laboratorio.get(d['id_laboratorio'])[0]
-                pm = self.pedidomedicamento.getByPedido(d['id'])
-                m = [self.medicamento.get(me[0])[0] for me in pm]
-                d.update({
-                    "farmacia": f,
-                    "empleado": e,
-                    "laboratorio": la,
-                    "medicamentos": m})
+                d.update({"laboratorio": la})
+                if med:
+                    pm = self.pedidomedicamento.getByPedido(d['id'])
+                    m = [self.medicamento.get(me[0])[0] for me in pm]
+                    d.update({"medicamentos": m})
             return data
         except DatabaseError:
             return {}
