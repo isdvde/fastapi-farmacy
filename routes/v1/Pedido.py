@@ -11,16 +11,7 @@ Pedido = APIRouter(prefix="/pedido", tags=['v1.pedido'])
 
 
 @Pedido.get("/")
-def get():
-    db = PedidoModel()
-    data = db.get()
-    del db
-    return JSONResponse(status_code=status.HTTP_200_OK,
-                        content={"data": data})
-
-
-@Pedido.get("/{id}")
-def getById(id: str):
+def get(id=""):
     db = PedidoModel()
     data = db.get(id)
     del db
